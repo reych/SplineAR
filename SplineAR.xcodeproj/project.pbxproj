@@ -15,6 +15,7 @@
 		CEB6A7A51F3192E600614E02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB6A7A31F3192E600614E02 /* LaunchScreen.storyboard */; };
 		CEB6A7B01F3192E600614E02 /* SplineARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6A7AF1F3192E600614E02 /* SplineARTests.swift */; };
 		CEB6A7BB1F3192E600614E02 /* SplineARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6A7BA1F3192E600614E02 /* SplineARUITests.swift */; };
+		CEEA4FAF1F39068700E6F88A /* CRSpline.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA4FAE1F39068700E6F88A /* CRSpline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		CEB6A7B61F3192E600614E02 /* SplineARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplineARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB6A7BA1F3192E600614E02 /* SplineARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplineARUITests.swift; sourceTree = "<group>"; };
 		CEB6A7BC1F3192E600614E02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEEA4FAE1F39068700E6F88A /* CRSpline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRSpline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				CEB6A7981F3192E600614E02 /* AppDelegate.swift */,
 				CEB6A79A1F3192E600614E02 /* art.scnassets */,
 				CEB6A79C1F3192E600614E02 /* ViewController.swift */,
+				CEEA4FAE1F39068700E6F88A /* CRSpline.swift */,
 				CEB6A79E1F3192E600614E02 /* Main.storyboard */,
 				CEB6A7A11F3192E600614E02 /* Assets.xcassets */,
 				CEB6A7A31F3192E600614E02 /* LaunchScreen.storyboard */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEEA4FAF1F39068700E6F88A /* CRSpline.swift in Sources */,
 				CEB6A79D1F3192E600614E02 /* ViewController.swift in Sources */,
 				CEB6A7991F3192E600614E02 /* AppDelegate.swift in Sources */,
 			);
@@ -528,6 +532,7 @@
 				CEB6A7C11F3192E600614E02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEB6A7C21F3192E600614E02 /* Build configuration list for PBXNativeTarget "SplineARTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +541,7 @@
 				CEB6A7C41F3192E600614E02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEB6A7C51F3192E600614E02 /* Build configuration list for PBXNativeTarget "SplineARUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +550,7 @@
 				CEB6A7C71F3192E600614E02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
