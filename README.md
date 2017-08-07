@@ -1,6 +1,10 @@
 Editable Splines in AR
 ===============================================
-Play with splines in 3D space! Made with ARKit and SceneKit.
+Play with splines in 3D space! Made with ARKit and SceneKit.  
+<img src="https://github.com/reych/SplineAR/blob/master/images/IMG_0018.PNG" alt="edit splines" width="200"/> 
+<img src="https://github.com/reych/SplineAR/blob/master/images/IMG_0023.PNG" alt="edit splines" width="200"/>  
+<img src="https://github.com/reych/SplineAR/blob/master/images/IMG_0024.PNG" alt="edit splines" width="200"/> 
+<img src="https://github.com/reych/SplineAR/blob/master/images/IMG_0026.PNG" alt="edit splines" width="200"/>  
 
 Requirements (Tested)
 -----------------------------------------------
@@ -10,7 +14,7 @@ Requirements (Tested)
 
 How to run this project
 -----------------------------------------------
-3. Open XCode project and run simulator to see demo.
+Open XCode project and run on an iPhone.
 
 Controls
 -----------------------------------------------
