@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2395191F46BD7900F1D8E5 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2395181F46BD7900F1D8E5 /* Matrix.swift */; };
+		CE5F3A7B1F3BCF8C00177977 /* RouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F3A7A1F3BCF8C00177977 /* RouterViewController.swift */; };
+		CE5F3A7D1F3BD55B00177977 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F3A7C1F3BD55B00177977 /* Router.swift */; };
+		CE5F3A7F1F3BD57500177977 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F3A7E1F3BD57500177977 /* Tool.swift */; };
+		CE5F3A811F3C313C00177977 /* RouterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F3A801F3C313C00177977 /* RouterManager.swift */; };
+		CE5F3A831F3CC0CE00177977 /* StepNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F3A821F3CC0CE00177977 /* StepNode.swift */; };
+		CE5F3A891F3D0B8000177977 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F3A881F3D0B8000177977 /* Plane.swift */; };
 		CEB6A7991F3192E600614E02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6A7981F3192E600614E02 /* AppDelegate.swift */; };
 		CEB6A79B1F3192E600614E02 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB6A79A1F3192E600614E02 /* art.scnassets */; };
 		CEB6A79D1F3192E600614E02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6A79C1F3192E600614E02 /* ViewController.swift */; };
@@ -36,6 +43,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE2395181F46BD7900F1D8E5 /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		CE5F3A7A1F3BCF8C00177977 /* RouterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterViewController.swift; sourceTree = "<group>"; };
+		CE5F3A7C1F3BD55B00177977 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		CE5F3A7E1F3BD57500177977 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		CE5F3A801F3C313C00177977 /* RouterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterManager.swift; sourceTree = "<group>"; };
+		CE5F3A821F3CC0CE00177977 /* StepNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepNode.swift; sourceTree = "<group>"; };
+		CE5F3A881F3D0B8000177977 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		CEB6A7951F3192E600614E02 /* SplineAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplineAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB6A7981F3192E600614E02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB6A79A1F3192E600614E02 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -104,6 +118,13 @@
 				CEB6A7981F3192E600614E02 /* AppDelegate.swift */,
 				CEB6A79A1F3192E600614E02 /* art.scnassets */,
 				CEB6A79C1F3192E600614E02 /* ViewController.swift */,
+				CE5F3A7A1F3BCF8C00177977 /* RouterViewController.swift */,
+				CE2395181F46BD7900F1D8E5 /* Matrix.swift */,
+				CE5F3A881F3D0B8000177977 /* Plane.swift */,
+				CE5F3A801F3C313C00177977 /* RouterManager.swift */,
+				CE5F3A7C1F3BD55B00177977 /* Router.swift */,
+				CE5F3A821F3CC0CE00177977 /* StepNode.swift */,
+				CE5F3A7E1F3BD57500177977 /* Tool.swift */,
 				CEEA4FAE1F39068700E6F88A /* CRSpline.swift */,
 				CEB6A79E1F3192E600614E02 /* Main.storyboard */,
 				CEB6A7A11F3192E600614E02 /* Assets.xcassets */,
@@ -264,6 +285,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEEA4FAF1F39068700E6F88A /* CRSpline.swift in Sources */,
+				CE5F3A891F3D0B8000177977 /* Plane.swift in Sources */,
+				CE5F3A7B1F3BCF8C00177977 /* RouterViewController.swift in Sources */,
+				CE5F3A811F3C313C00177977 /* RouterManager.swift in Sources */,
+				CE5F3A831F3CC0CE00177977 /* StepNode.swift in Sources */,
+				CE5F3A7D1F3BD55B00177977 /* Router.swift in Sources */,
+				CE2395191F46BD7900F1D8E5 /* Matrix.swift in Sources */,
+				CE5F3A7F1F3BD57500177977 /* Tool.swift in Sources */,
 				CEB6A79D1F3192E600614E02 /* ViewController.swift in Sources */,
 				CEB6A7991F3192E600614E02 /* AppDelegate.swift in Sources */,
 			);

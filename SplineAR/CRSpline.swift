@@ -100,7 +100,7 @@ class CRSpline: NSObject {
         controlPoints.append(point)
     }
     
-    // For now, just reconstruct the spline and redo positions array
+    // Remove control point and update affected segments.
     func removeControlPoint(_ node: SCNNode) -> [Int]{
         let index = controlPoints.index(of: node) as! Int
         print("deleting index: \(index)")
@@ -112,6 +112,7 @@ class CRSpline: NSObject {
         
     }
     
+    // Move control point and update affected segments.
     func moveControlPoint(_ point: SCNNode, position: SCNVector3) -> [Int] {
         point.position = position
         let index = controlPoints.index(of: point) as! Int
@@ -162,6 +163,12 @@ class CRSpline: NSObject {
         }
         print("affected segments: \(nodes.count)")
         return nodes
+    }
+    
+    // Delete everything in the spline.
+    func nuke() {
+        controlPoints = [SCNNode]()
+        segments = [SCNNode: [SCNNode]]()
     }
     
     private func rebuildAffectedSegments(index: Int, editAction: EditAction) -> [Int]{

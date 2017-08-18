@@ -15,14 +15,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     var spline = CRSpline()
     
-    //var pointNodes = [SCNNode]()
-    //var controlNodes: Set = Set<SCNNode>()
-    //var controlAnchors = [ARAnchor]()
-    
     var highlightNode: SCNNode! // For UI indication
     var selectedNode: SCNNode? // Selected node for interaction.
-    
-    var vectorToNode: vector_float3?
     
     var touchLocation: CGPoint?
     
@@ -89,7 +83,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.view.addGestureRecognizer(swipeUpRecognizer)
     }
     
-    // MARK: - Handle touch event.
+    // MARK: - Handle touch event and gestures.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touches began")
         // Select node
@@ -168,42 +162,44 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     // Swipe up.
     @objc func swipeUp(_ sender: UIGestureRecognizer) {
         print ("swipe up")
+        let actionSheetController = UIAlertController(title: "Options", message: "Choose an action", preferredStyle: .actionSheet)
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionSheetController.addAction(cancelActionButton)
         // Display options for selected node.
         if let node = selectedNode {
-            let actionSheetController = UIAlertController(title: "Options", message: "Choose an action", preferredStyle: .actionSheet)
+            
             let deleteActionButton = UIAlertAction(title: "Delete", style: .destructive, handler: {_ in
                 print("delete")
-                self.deselectNode()
-                //Get affected segments and delete. Edit action is 'move' because node is not yet deleted.
-                let affectedSegments = self.spline.getAffectedSegmentsOfControlPoint(node, editAction: .move)
-                
-                for segment in affectedSegments {
-                    for point in segment {
-                        point.removeFromParentNode()
-                    }
-                }
-                print("affected segments num: \(affectedSegments.count)")
-                
-                node.removeFromParentNode()
-                let cvIndices = self.spline.removeControlPoint(node)
-                
-                // Update the intermediate points.
-                for index in cvIndices {
-                    let controlPoint = self.spline.controlPoints[index]
-                    if let segment = self.spline.segments[controlPoint] {
-                        for point in segment {
-                            self.sceneView.scene.rootNode.addChildNode(point)
-                        }
-                    }
-                }
-                
+                self.deleteNode(node: node)
                 
             })
-            let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
             actionSheetController.addAction(deleteActionButton)
-            actionSheetController.addAction(cancelActionButton)
-            self.present(actionSheetController, animated: true, completion: nil)
         }
+        // Options for general.
+        else {
+            let nukeActionButton = UIAlertAction(title: "Nuke spline", style: .destructive, handler: {_ in
+                for cp in self.spline.controlPoints {
+                    if let segment = self.spline.segments[cp] {
+                        for node in segment {
+                            node.removeFromParentNode()
+                        }
+                    }
+                    cp.removeFromParentNode()
+                }
+                self.spline.nuke()
+                
+            })
+            
+            let switchActionButton = UIAlertAction(title: "Switch", style: .default, handler: {_ in
+                self.performSegue(withIdentifier: "toRouter", sender: self)
+            })
+            
+            actionSheetController.addAction(switchActionButton)
+            actionSheetController.addAction(nukeActionButton)
+        }
+        
+        self.present(actionSheetController, animated: true, completion: nil)
     }
     
     // Update position of highlight node.
@@ -216,6 +212,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    
+    // MARK: - Node selection logic
+    
+    func selectNode(_ node: SCNNode) {
+        if spline.isControlPoint(node) {
+            deselectNode()
+            selectedNode = node
+            selectedNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan.cgColor
+        }
+    }
+    
+    // Deselect selected node.
+    func deselectNode() {
+        if let node = selectedNode {
+            node.geometry?.firstMaterial?.diffuse.contents = UIColor.red.cgColor
+            selectedNode = nil
+        }
+    }
+    
+    // Update position of selected node.
     func updateSelectedNode() {
         if let node = selectedNode {
             if let currentFrame = sceneView.session.currentFrame {
@@ -252,31 +268,55 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    // MARK: - Node selection logic
-    func selectNode(_ node: SCNNode) {
-        if spline.isControlPoint(node) {
-            deselectNode()
-            selectedNode = node
-            selectedNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan.cgColor
-            
-            if let currentFrame = sceneView.session.currentFrame {
-                let nodePos = node.position
-                let camPos = currentFrame.camera.transform.columns.3
-                vectorToNode = vector3(nodePos.x - camPos.x, nodePos.y - camPos.y, nodePos.z - camPos.z)
-                print(vectorToNode!)
+    func deleteNode(node: SCNNode) {
+        self.deselectNode()
+        //Get affected segments and delete. Edit action is 'move' because node is not yet deleted.
+        let affectedSegments = self.spline.getAffectedSegmentsOfControlPoint(node, editAction: .move)
+        
+        for segment in affectedSegments {
+            for point in segment {
+                point.removeFromParentNode()
+            }
+        }
+        print("affected segments num: \(affectedSegments.count)")
+        
+        node.removeFromParentNode()
+        let cvIndices = self.spline.removeControlPoint(node)
+        
+        // Update the intermediate points.
+        for index in cvIndices {
+            let controlPoint = self.spline.controlPoints[index]
+            if let segment = self.spline.segments[controlPoint] {
+                for point in segment {
+                    self.sceneView.scene.rootNode.addChildNode(point)
+                }
             }
         }
     }
     
-    func deselectNode() {
-        if let node = selectedNode {
-            node.geometry?.firstMaterial?.diffuse.contents = UIColor.red.cgColor
-            selectedNode = nil
+    // MARK: - Render out lines
+    func renderLines(spline: CRSpline) {
+        var positions = [SCNVector3]()
+        var indices = [Int]()
+        indices.append(0)
+        var index = 1;
+        for cp in spline.controlPoints {
+            if let segment = spline.segments[cp] {
+                for node in segment {
+                    positions.append(node.position)
+                    indices.append(index)
+                    indices.append(index)
+                    index += 1;
+                }
+            }
         }
-    }
-    
-    // Return true if is a node for a control point.
-    func isControlPointNode(_ node: SCNNode) {
+        
+        let splinePositions = SCNGeometrySource(vertices: positions)
+        let splineIndices = SCNGeometryElement(indices: indices, primitiveType: .line)
+        
+        let line = SCNGeometry(sources: [splinePositions], elements: [splineIndices])
+        sceneView.scene.rootNode.addChildNode(SCNNode(geometry: line))
+        
         
     }
 
@@ -286,6 +326,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         updateHighlightNode()
         updateSelectedNode()
+        //renderLines(spline: spline)
     }
     
     // Override to create and configure nodes for anchors added to the view's session.
@@ -312,5 +353,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        sceneView.session.pause()
     }
 }
